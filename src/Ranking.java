@@ -14,6 +14,7 @@ public class Ranking {
         return map;
     }
 
+    // helper method for setting up user input test
     public static void setupUserInputTest(Scanner scanner, Map<String, Map<String, Integer>> programmerPreferences, Map<String, Map<String, Integer>> companyPreferences) {
         // Ask for the number of programmers/companies
         System.out.println("Enter the number of programmers/companies:");
