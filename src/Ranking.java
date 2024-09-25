@@ -1,9 +1,9 @@
+package src;
 import java.util.*;
 
 public class Ranking {
 
-    public LinkedHashMap<String, HashMap<String, String>> generateRandomPreferences(int n) {
-        Random random = new Random();
+    public LinkedHashMap<String, HashMap<String, String>> generatePreferences(int n) {
         LinkedHashMap<String, HashMap<String, String>> preferences = new LinkedHashMap<>();
 
         // Generate programmer and company names
@@ -14,24 +14,20 @@ public class Ranking {
             companies.add("C" + i);
         }
 
-        // Generate random rankings for each programmer
+        // Generate fixed rankings for each programmer
         for (String programmer : programmers) {
             HashMap<String, String> ranking = new HashMap<>();
-            List<String> shuffledCompanies = new ArrayList<>(companies);
-            Collections.shuffle(shuffledCompanies, random);
             for (int i = 0; i < n; i++) {
-                ranking.put(shuffledCompanies.get(i), String.valueOf(i + 1));
+                ranking.put(companies.get(i), String.valueOf(i + 1));
             }
             preferences.put(programmer, ranking);
         }
 
-        // Generate random rankings for each company
+        // Generate fixed rankings for each company
         for (String company : companies) {
             HashMap<String, String> ranking = new HashMap<>();
-            List<String> shuffledProgrammers = new ArrayList<>(programmers);
-            Collections.shuffle(shuffledProgrammers, random);
             for (int i = 0; i < n; i++) {
-                ranking.put(shuffledProgrammers.get(i), String.valueOf(i + 1));
+                ranking.put(programmers.get(i), String.valueOf(i + 1));
             }
             preferences.put(company, ranking);
         }
