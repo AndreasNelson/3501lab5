@@ -62,8 +62,10 @@ public class Pairing {
 
                 String otherProgrammer = pairing.get(otherCompany);
                 System.out.println("Checking if Programmer " + programmer + " prefers Company " + otherCompany + " over Company " + company);
-                // If the programmer prefers another company and that company also prefers this programmer, the pairing is not satisfactory
-                if (companyPreferences.get(otherCompany).get(programmer) < companyPreferences.get(otherCompany).get(otherProgrammer)) {
+
+                // Check if otherProgrammer is null before accessing its preferences
+                if (otherProgrammer != null && 
+                    companyPreferences.get(otherCompany).get(programmer) < companyPreferences.get(otherCompany).get(otherProgrammer)) {
                     System.out.println("Programmer " + programmer + " prefers Company " + otherCompany + " over Company " + company);
                     return false;
                 }

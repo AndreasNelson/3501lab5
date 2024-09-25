@@ -14,31 +14,33 @@ public class Ranking {
         return map;
     }
 
-    public static Map<String, Map<String, Integer>> getPreferencesFromInput(Scanner scanner, String type, int n) {
-        Map<String, Map<String, Integer>> preferences = new HashMap<>();
-        for (int i = 0; i < n; i++) {
-            System.out.println("Enter preferences for " + type + " " + (i + 1) + ":");
-            Map<String, Integer> ranking = new HashMap<>();
-            for (int j = 0; j < n; j++) {
-                System.out.println("Enter preference " + (j + 1) + ":");
-                String key = scanner.nextLine();
-                ranking.put(key, j + 1);
-            }
-            preferences.put(type + (i + 1), ranking);
-        }
-        return preferences;
-    }
+    public static void setupUserInputTest(Scanner scanner, Map<String, Map<String, Integer>> programmerPreferences, Map<String, Map<String, Integer>> companyPreferences) {
+        // Ask for the number of programmers/companies
+        System.out.println("Enter the number of programmers/companies:");
+        int numEntities = Integer.parseInt(scanner.nextLine());
 
-    /**
-     * Helper function to create a HashMap from an array of strings.
-     * @param args The array of strings in the format (key, value, key, value, ...).
-     * @return A HashMap representing the key-value pairs.
-     */
-    public static HashMap<String, String> createHashMap(String... args) {
-        HashMap<String, String> map = new HashMap<>();
-        for (int i = 0; i < args.length; i += 2) {
-            map.put(args[i], args[i + 1]);
+        // Get programmer preferences
+        for (int i = 1; i <= numEntities; i++) {
+            System.out.println("Enter rankings of companies for programmer " + i + " (format: A,B,C,...):");
+            String input = scanner.nextLine();
+            String[] preferences = input.split(",");
+            Map<String, Integer> ranking = new HashMap<>();
+            for (int j = 0; j < preferences.length; j++) {
+                ranking.put(preferences[j], j + 1);
+            }
+            programmerPreferences.put("p" + i, ranking);
         }
-        return map;
+
+        // Get company preferences
+        for (int i = 1; i <= numEntities; i++) {
+            System.out.println("Enter rankings of programmers for company " + (char)('A' + i - 1) + " (format: p1,p2,p3,...):");
+            String input = scanner.nextLine();
+            String[] preferences = input.split(",");
+            Map<String, Integer> ranking = new HashMap<>();
+            for (int j = 0; j < preferences.length; j++) {
+                ranking.put(preferences[j], j + 1);
+            }
+            companyPreferences.put(String.valueOf((char)('A' + i - 1)), ranking);
+        }
     }
 }
