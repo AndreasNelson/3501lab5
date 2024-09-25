@@ -1,19 +1,25 @@
 # 3501lab5
+
 ## Overview
-I used an implementation of the Gale Shapley algorithm for this lab as I found the stable marriage problem to be very similar to the programmer and company hiring problem.
-I based my algorithm off of the code provided by geeksforgeeks https://www.geeksforgeeks.org/stable-marriage-problem/
+
+I used an implementation of the Gale Shapley algorithm for this lab as I found the stable marriage problem to be very similar to the programmer and company hiring problem. I based my algorithm off of the code provided by GeeksforGeeks: <https://www.geeksforgeeks.org/stable-marriage-problem/>
+
 ## How to Run
-The testing suite is setup in Main.java
-There is a demo test setup using the provided table from the lab, additional testing can be done through the command line when main.java is run.
-The pairing system uses hashmaps to give values to each preference, so you must provide the value in the ranking along with the programmer or company.
+
+There are two separate testing files. `StaticTest.java` contains pre-configured tests, while `CLITesting.java` uses the command line to take user input for writing new tests. Running the file will provide you with prompts to walk you through setting up a table.
+
 ## Pairing Analysis
 
-The pairing `{A=p2, B=p3, C=p1, D=p5, E=p4}` is satisfactory if no programmer or company can improve their situation by switching partners. Given the preferences:
+Looking at the example provided in the assignment details, the pairing `{A=p2, B=p1, C=p5, D=p3, E=p4}` is satisfactory if no programmer or company can improve their situation by switching partners. Given the preferences:
 
 - **p2 and A** are satisfied because A prefers p2 the most.
-- **p3 and B** are satisfied because B prefers p3 the most.
-- **p1 and C** are satisfied because C prefers p1 the most.
-- **p5 and D** are not ideally matched, but D prefers p5 over p4.
-- **p4 and E** are satisfied because E prefers p4 the most.
+- **p1 and B** are satisfied because B prefers p1 the most.
+- **p5 and C** are satisfied because C prefers p5 the most.
+- **p3 and D** are not ideally matched, because D prefers p1 the most.
+- **p4 and E** are not ideally matched, because E prefers p2 the most.
 
-Despite some unsatisfactory pairings (e.g., p2 with A and p5 with D), the overall pairing is considered satisfactory because no one can improve their situation by switching partners.
+Despite some unsatisfactory pairings, the overall pairing is considered satisfactory because no one can improve their situation by switching partners, and the majority of the groups are satisfied. The number of programmers and companies is finite, and programmers cannot apply to the same company twice, so the algorithm is guaranteed to terminate.
+
+### Efficiency
+
+The worst-case scenario would be when every programmer applies to every company. With `n` programmers and `n` companies, we have `n*n` applications. For each application, we have to check if the company prefers the new programmer over its current match, which takes constant time as it's just a single comparison. This leads to a final worst-case run time complexity of `O(n^2)`.
