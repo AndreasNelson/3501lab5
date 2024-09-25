@@ -25,5 +25,22 @@ public class Main {
         // Check if the pairing is satisfactory
         boolean isSatisfactory = Pairing.isPairingSatisfactory(pairing, programmerPreferences, companyPreferences);
         System.out.println("Is the pairing satisfactory? " + isSatisfactory);
+
+        // Interactive test
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("\nInteractive Test:");
+        System.out.println("Enter the number of programmers/companies:");
+        int n = Integer.parseInt(scanner.nextLine());
+
+        Map<String, Map<String, String>> interactiveProgrammerPreferences = Ranking.getPreferencesFromInput(scanner, "programmer", n);
+        Map<String, Map<String, String>> interactiveCompanyPreferences = Ranking.getPreferencesFromInput(scanner, "company", n);
+
+        // Find a satisfactory pairing for interactive input
+        Map<String, String> interactivePairing = Pairing.findSatisfactoryPairing(interactiveProgrammerPreferences, interactiveCompanyPreferences);
+        System.out.println("Interactive Pairing: " + interactivePairing);
+
+        // Check if the interactive pairing is satisfactory
+        boolean isInteractiveSatisfactory = Pairing.isPairingSatisfactory(interactivePairing, interactiveProgrammerPreferences, interactiveCompanyPreferences);
+        System.out.println("Is the interactive pairing satisfactory? " + isInteractiveSatisfactory);
     }
 }

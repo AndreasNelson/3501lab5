@@ -21,10 +21,10 @@ public class Pairing {
 
             // Iterate over the programmer's preferences
             for (String company : programmerPreferences.get(programmer).keySet()) {
-                System.out.println("Programmer " + programmer + " is proposing to Company " + company);
+                System.out.println("Programmer " + programmer + " is applying to Company " + company);
                 // If the company is free, match them
                 if (companyMatches.get(company) == null) {
-                    System.out.println("Company " + company + " is free and accepts the proposal from Programmer " + programmer);
+                    System.out.println("Company " + company + " is free and accepts the application from Programmer " + programmer);
                     companyMatches.put(company, programmer);
                     break;
                 } else {
