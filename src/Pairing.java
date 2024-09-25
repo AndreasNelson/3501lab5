@@ -3,8 +3,7 @@ import java.util.*;
 
 public class Pairing {
 
-
-    public static Map<String, String> findSatisfactoryPairing(Map<String, Map<String, String>> programmerPreferences, Map<String, Map<String, String>> companyPreferences) {
+    public static Map<String, String> findSatisfactoryPairing(Map<String, Map<String, Integer>> programmerPreferences, Map<String, Map<String, Integer>> companyPreferences) {
         // Initialize the set of free programmers
         Set<String> freeProgrammers = new HashSet<>(programmerPreferences.keySet());
         // Initialize the map to store company matches
@@ -32,7 +31,7 @@ public class Pairing {
                     String currentMatch = companyMatches.get(company);
                     System.out.println("Company " + company + " is currently matched with Programmer " + currentMatch);
                     // Check if the company prefers the new programmer over the current match
-                    if (companyPreferences.get(company).get(programmer).compareTo(companyPreferences.get(company).get(currentMatch)) < 0) {
+                    if (companyPreferences.get(company).get(programmer) < companyPreferences.get(company).get(currentMatch)) {
                         System.out.println("Company " + company + " prefers Programmer " + programmer + " over Programmer " + currentMatch);
                         System.out.println("Unsatisfactory pairing: " + company + " with " + currentMatch);
                         // Update the match and add the current match back to the free programmers
@@ -49,7 +48,7 @@ public class Pairing {
         return companyMatches;
     }
 
-    public static boolean isPairingSatisfactory(Map<String, String> pairing, Map<String, Map<String, String>> programmerPreferences, Map<String, Map<String, String>> companyPreferences) {
+    public static boolean isPairingSatisfactory(Map<String, String> pairing, Map<String, Map<String, Integer>> programmerPreferences, Map<String, Map<String, Integer>> companyPreferences) {
         // Iterate over each pairing
         for (Map.Entry<String, String> entry : pairing.entrySet()) {
             String company = entry.getKey();
@@ -64,7 +63,7 @@ public class Pairing {
                 String otherProgrammer = pairing.get(otherCompany);
                 System.out.println("Checking if Programmer " + programmer + " prefers Company " + otherCompany + " over Company " + company);
                 // If the programmer prefers another company and that company also prefers this programmer, the pairing is not satisfactory
-                if (companyPreferences.get(otherCompany).get(programmer).compareTo(companyPreferences.get(otherCompany).get(otherProgrammer)) < 0) {
+                if (companyPreferences.get(otherCompany).get(programmer) < companyPreferences.get(otherCompany).get(otherProgrammer)) {
                     System.out.println("Programmer " + programmer + " prefers Company " + otherCompany + " over Company " + company);
                     return false;
                 }
